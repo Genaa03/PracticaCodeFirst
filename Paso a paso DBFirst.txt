@@ -1,0 +1,50 @@
+1- Instalar Dependencias
+
+2- Crear ConnectionStrings: "Server=localhost;Port=5432;Database=clubNautico;User Id=gena;Password=1234"
+
+3- Scaffold : Scaffold-dbContext "Name=ConexionBaseDatos" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Models -ContextDir Context -Context ContextDB
+
+3a- Crear los builders en program(AddDBContext,AddCors,UseCors,AddMediatR,AddFluentValidation)
+{
+builder.Services.AddDbContext<ContextDB>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("ConexionDataBase"));
+});
+
+
+	builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+	o
+	builder.Services.AddMediatR(typeof("Handler del command").Assembly);
+	o
+	builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
+
+
+builder.Services.AddFluentValidation(config =>
+
+    config.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly())
+);
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    });
+});
+
+4- Crear carpeta CQRS (Queries,Commands)
+
+5- Crear respuesta base, y respuestas
+
+6- Crear Queries(Get:IRequest<"Lo que devuelve"> ; Validation : AbstractValidator<Get> ; Handler : IRequestHandler<Get, "Lo que devuelve")
+
+7- Crear Commands(Get:IRequest<"Lo que devuelve"> ; Validation : AbstractValidator<Get> ; Handler : IRequestHandler<Get, "Lo que devuelve")
+
+8- Get: Todos los parametros de busqueda, si necesita.
+
+9- Validation: Se crea constructor dentro con las rules.(RuleFor(c => c.Id).NotEmpty();)
+
+10- Handler: se valida, se crea el objeto, se añade a la DB y se guarda los cambios en la DB (try-catch)
