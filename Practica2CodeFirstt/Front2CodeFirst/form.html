@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        label.error {
+        color: red;
+    }
+    </style>
+</head>
+<body>
+    <div class="container ">
+        <form class="form-control" id="formu">
+            <div class="row">
+                <div class="col">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese un nombre">
+                </div>
+                <div class="col">
+                    <label for="apellido">Apellido</label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Ingrese un apellido">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="cargo">Cargo</label>
+                    <select class="form-select" id="cargo" name="cargo">
+                        <option disabled selected value="">Seleccione un cargo</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="sucursal">Sucursal</label>
+                    <select class="form-select" id="sucursal" name="sucursal">
+                        <option disabled selected value="">Seleccione una sucursal</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="dni">DNI</label>
+                    <input type="text" class="form-control" id="dni" placeholder="Ingrese un numero de dni" name="dni">
+                </div>
+                <div class="col">
+                    <label for="dni">Fecha de Alta</label>
+                    <input type="datetime-local" class="form-control" id="fechaAlta" placeholder="Ingrese una fecha de alta" name="fechaAlta">
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-6">
+                    <label for="jefe">Jefe</label>
+                    <select class="form-select" id="jefe" name="jefe">
+                        <option disabled selected value="">Seleccione un jefe</option>
+                    </select>
+                </div>
+            </div>
+            <div class="text-center" style="margin-top:15px">
+                <button class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function(){
+        cargarCargos();
+        cargarSucursales();
+        cargarJefes();
+
+        $('#formu').validate({
+            rules: {
+                nombre: "required",
+                apellido: "required",
+                cargo: "required",
+                sucursal: "required",
+                dni: "required",
+                fechaAlta: "required",
+                jefe: "required",
+            },
+            messages: {
+                nombre: "Ingrese un nombre",
+                apellido: "Ingrese un apellido",
+                cargo: "Seleccione un cargo",
+                sucursal: "Seleccione una sucursal",
+                dni: "Ingrese un dni",
+                fechaAlta: "Ingrese una fecha de alta",
+                jefe: "Seleccione un jefe",
+            }
+        });
+
+        $('#formu').submit(function(event){
+            event.preventDefault();
+
+            if ($('#formu').valid()) {
+                var empleado = {
+                    nombre: $('#nombre').val(),
+                    apellido: $('#apellido').val(),
+                    idCargo: $('#cargo').val(),
+                    idSucursal: $('#sucursal').val(),
+                    dni: $('#dni').val(),
+                    fechaAlta: new Date($('#fechaAlta').val()).toISOString(),
+                    idJefe: $('#jefe').val()
+                };
+
+                $.ajax({
+                    url: "https://localhost:7179/api/Empleado/postEmpleado", // Agrega la URL correcta para la petición POST
+                    type: "POST",
+                    contentType: "application/json", // Agrega el tipo de contenido
+                    data: JSON.stringify(empleado),
+                    success: function(result){
+                        if(result.ok){
+                            // Restablece el formulario después de enviarlo con éxito
+                            $('#formu').trigger('reset');
+                            alert("Se ha guardado el nuevo empleado.");
+                            cargarJefes();
+                        } 
+                        else {
+                            alert("No se pudo guardar el nuevo empleado.");
+                        }
+                    },
+                    error: function(){
+                        alert("Error al cargar los cargos.");
+                    }
+                });
+            }
+            else {
+                alert("formulario no válido");
+            }
+        });
+    });
+
+
+    
+
+        function cargarCargos(){
+            $.ajax({
+                url:"https://localhost:7179/api/Cargos/getCargos",
+                type:"GET",
+                success:function(data){
+                    if(!data.ok){
+                        alert('Error al obtener respuesta.');
+                        return;
+                    }
+                    const select = $('#cargo');
+                    data.listaCargos.forEach(c=>{
+                        select.append($('<option>',{
+                            value:c.id,
+                            text:c.nombre
+                        }));
+                    });
+                },
+                error:function(){
+                    alert("Error al cargar los cargos");
+                }
+            })
+        }
+
+        function cargarSucursales(){
+            $.ajax({
+                url:"https://localhost:7179/api/Sucursales/getSucursales",
+                type:"GET",
+                success:function(data){
+                    if(!data.ok){
+                        alert('Error al obtener respuesta.');
+                        return;
+                    }
+                    const select = $('#sucursal');
+                    data.listaSucursales.forEach(c=>{
+                        select.append($('<option>',{
+                            value:c.id,
+                            text:c.nombre
+                        }));
+                    });
+                },
+                error:function(){
+                    alert("Error al cargar los cargos");
+                }
+            })
+        }
+
+
+        function cargarJefes(){
+            $.ajax({
+                url:"https://localhost:7179/api/Empleado/getListaJefes",
+                type:"GET",
+                success:function(data){
+                    if(!data.ok){
+                        alert('Error al obtener respuesta.');
+                        return;
+                    }
+                    const select = $('#jefe');
+                    select.empty();
+                    data.listaEmpleados.forEach(c=>{
+                        select.append($('<option>',{
+                            value:c.id,
+                            text:c.nombre
+                        }));
+                    });
+                },
+                error:function(){
+                    alert("Error al cargar los cargos");
+                }
+            })
+        }
+    </script>
+</body>
+</html>
