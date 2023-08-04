@@ -1,0 +1,10 @@
+1- instalar dependencias y crear cadena de conexion
+2- crear models
+3- crear contextBD con sus DBSET
+4- agregar el contextBD al program.cs
+5- hacer add-migration y luego update-database
+6- completar program.cs con mediatr, fluentvalidation y cors
+7- crear respuesta base y respuestas(opcional DTO)
+8- crear CQRS, queries y commands
+9- crear controllers
+10- crear html
