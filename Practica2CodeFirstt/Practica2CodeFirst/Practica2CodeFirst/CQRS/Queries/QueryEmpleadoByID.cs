@@ -34,22 +34,31 @@ namespace Practica2CodeFirst.CQRS.Queries
                 RespuestaEmpleado respuesta = new RespuestaEmpleado();
                 try
                 {
-                    var empleado = await _context.Empleados.FirstOrDefaultAsync(e=>e.Id.Equals(request.Id));
+                    var validacion = await _validator.ValidateAsync(request);
 
-                    if(empleado != null)
+                    if (validacion.IsValid)
                     {
-                        respuesta.Nombre = empleado.Nombre;
-                        respuesta.Apellido = empleado.Apellido;
-                        respuesta.IdSucursal = empleado.IdSucursal;
-                        respuesta.IdCargo = empleado.IdCargo;
-                        respuesta.Dni = empleado.Dni;
-                        respuesta.FechaAlta = empleado.FechaAlta;
+                        var empleado = await _context.Empleados.FirstOrDefaultAsync(e => e.Id.Equals(request.Id));
+
+                        if (empleado != null)
+                        {
+                            respuesta.Nombre = empleado.Nombre;
+                            respuesta.Apellido = empleado.Apellido;
+                            respuesta.IdSucursal = empleado.IdSucursal;
+                            respuesta.IdCargo = empleado.IdCargo;
+                            respuesta.Dni = empleado.Dni;
+                            respuesta.FechaAlta = empleado.FechaAlta;
+                        }
+                        else
+                        {
+                            respuesta.setMensajeError("No se obtuvo el empleado con ID " + request.Id, System.Net.HttpStatusCode.BadRequest);
+                        }
                     }
                     else
                     {
-                        respuesta.setMensajeError("No se obtuvo el empleado con ID " + request.Id, System.Net.HttpStatusCode.BadRequest);
+                        respuesta.setMensajeError("No se valido correctamente el id " + request.Id, System.Net.HttpStatusCode.BadRequest);
                     }
-                    
+
                 }
                 catch
                 {

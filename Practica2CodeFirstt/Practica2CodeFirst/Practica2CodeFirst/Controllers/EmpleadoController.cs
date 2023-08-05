@@ -6,6 +6,7 @@ using Practica2CodeFirst.Respuestas;
 using static Practica2CodeFirst.CQRS.Commands.PostCargo;
 using static Practica2CodeFirst.CQRS.Commands.PostCiudad;
 using static Practica2CodeFirst.CQRS.Commands.PostEmpleado;
+using static Practica2CodeFirst.CQRS.Commands.PostLogin;
 using static Practica2CodeFirst.CQRS.Commands.PostSucursal;
 using static Practica2CodeFirst.CQRS.Queries.QueryEmpleadoByID;
 using static Practica2CodeFirst.CQRS.Queries.QueryListaEmpleados;
@@ -42,6 +43,13 @@ namespace Practica2CodeFirst.Controllers
         public async Task<RespuestaEmpleado> getEmpleadoByID(Guid id)
         {
             return await _mediator.Send(new GetEmpleadoID { Id=id});
+        }
+
+        [HttpPost]
+        [Route("postLogin")]
+        public async Task<RespuestaLogin> postLogin([FromBody] CommandLogin login)
+        {
+            return await _mediator.Send(login);
         }
 
         [HttpPost]
