@@ -1373,11 +1373,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Gena\\Facultad\\Programacion\\Programacion III\\PracticaRecuFinal\\Practica2CodeFirstt\\Practica2CodeFirst\\Practica2CodeFirst\\Practica2CodeFirst.csproj",
+      "projectUniqueName": "E:\\Gena\\Facultad\\Programacion\\Programacion III\\PracticaRecuFinal\\PracticaCodeFirst2Repo\\Practica2CodeFirstt\\Practica2CodeFirst\\Practica2CodeFirst\\Practica2CodeFirst.csproj",
       "projectName": "Practica2CodeFirst",
-      "projectPath": "E:\\Gena\\Facultad\\Programacion\\Programacion III\\PracticaRecuFinal\\Practica2CodeFirstt\\Practica2CodeFirst\\Practica2CodeFirst\\Practica2CodeFirst.csproj",
+      "projectPath": "E:\\Gena\\Facultad\\Programacion\\Programacion III\\PracticaRecuFinal\\PracticaCodeFirst2Repo\\Practica2CodeFirstt\\Practica2CodeFirst\\Practica2CodeFirst\\Practica2CodeFirst.csproj",
       "packagesPath": "C:\\Users\\Gena\\.nuget\\packages\\",
-      "outputPath": "E:\\Gena\\Facultad\\Programacion\\Programacion III\\PracticaRecuFinal\\Practica2CodeFirstt\\Practica2CodeFirst\\Practica2CodeFirst\\obj\\",
+      "outputPath": "E:\\Gena\\Facultad\\Programacion\\Programacion III\\PracticaRecuFinal\\PracticaCodeFirst2Repo\\Practica2CodeFirstt\\Practica2CodeFirst\\Practica2CodeFirst\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Gena\\AppData\\Roaming\\NuGet\\NuGet.Config",

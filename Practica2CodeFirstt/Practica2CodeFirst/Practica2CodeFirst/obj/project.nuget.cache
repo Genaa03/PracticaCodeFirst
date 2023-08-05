@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cvgLt8rYy0NooEP4/6x+tVyHEnEw//59Ve0vHGes6/ARz8Toyx2B2KTEYdXu47JmXW83/x3glWsJnpddwnZwYg==",
+  "dgSpecHash": "W5VB72+gtyTt3WlHe4pHZR3Wc/q+IlsJkDUdxEEpPfX7OnHLRwZVdCjD5eUBAyow4CtLs1gHLb6R342YM1FkmQ==",
   "success": true,
-  "projectFilePath": "E:\\Gena\\Facultad\\Programacion\\Programacion III\\PracticaRecuFinal\\Practica2CodeFirstt\\Practica2CodeFirst\\Practica2CodeFirst\\Practica2CodeFirst.csproj",
+  "projectFilePath": "E:\\Gena\\Facultad\\Programacion\\Programacion III\\PracticaRecuFinal\\PracticaCodeFirst2Repo\\Practica2CodeFirstt\\Practica2CodeFirst\\Practica2CodeFirst\\Practica2CodeFirst.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Gena\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
     "C:\\Users\\Gena\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
