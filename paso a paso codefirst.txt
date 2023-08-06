@@ -1,7 +1,7 @@
 1- instalar dependencias y crear cadena de conexion
 2- crear models
-3- crear contextBD con sus DBSET
-4- agregar el contextBD al program.cs
+3- crear contextBD con sus DBSET y su constructor con (DbContextOptions options):base(options)
+4- agregar el contextBD al program.cs y el UseNpgSql(builder.Configuration.GetConnectionString("ConexionBaseDatos"))
 5- hacer add-migration y luego update-database
 6- completar program.cs con mediatr, fluentvalidation y cors
 7- crear respuesta base y respuestas(opcional DTO)
